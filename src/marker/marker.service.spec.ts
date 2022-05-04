@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Neo4jService } from './neo4j.service';
+import { MarkerService } from './marker.service';
 
-describe('Neo4jService', () => {
-  let service: Neo4jService;
+describe('MarkerService', () => {
+  let service: MarkerService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [Neo4jService],
+      providers: [MarkerService],
     }).compile();
 
-    service = module.get<Neo4jService>(Neo4jService);
+    service = module.get<MarkerService>(MarkerService);
   });
 
   it('should be defined', () => {
