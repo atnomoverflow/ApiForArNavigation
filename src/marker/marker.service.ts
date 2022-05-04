@@ -24,10 +24,22 @@ export class MarkerService {
             ({ records }) => new Marker(records[0].get('m'))
         );
     }
+    update(markerID:string,updates: Record<string, any>):Promise<Marker|undefined>
+    {
+        return this.neo4jService.write(`MATCH(m:Marker{id:$markerID}
+            m+=$updates
+            return m
+            )`,{markerID,updates}).then(
+                res=>{
+                    if (res.records.length == 0) return undefined
+                    return  new Marker(res.records[0].get('m'))
+                }
+            )
+    }
     remove(markerID:string):Promise<Boolean>{
         return this.neo4jService.write(`
         MATCH(m:Marker{id:$markerID})
-        DELETE m
+        DETATCH DELETE m
         Return m
         `,{markerID}).then(
             (res)=>{
@@ -73,16 +85,5 @@ export class MarkerService {
 
         })
     }
-    update(markerID:string,updates: Record<string, any>):Promise<Marker|undefined>
-    {
-        return this.neo4jService.write(`MATCH(m:Marker{id:$markerID}
-            m+=$updates
-            return m
-            )`,{markerID,updates}).then(
-                res=>{
-                    if (res.records.length == 0) return undefined
-                    return  new Marker(res.records[0].get('m'))
-                }
-            )
-    }
+   
 }

@@ -24,13 +24,6 @@ export class MarkerController {
             marker: marker.toJson()
         }
     }
-    @Delete('/:id')
-    async deleteMarker(@Param('id') markerID) {
-        const marker = await this.markerService.remove(markerID);
-
-        if (!marker) throw new NotFoundException()
-        return 'OK'
-    }
     @Put('/:id')
     async updateMarker(@Param('id') markerID, @Body() markerupdateDTO: MarkeUpdateDTO) {
         const marker = await this.markerService.update(markerID, markerupdateDTO)
@@ -38,6 +31,13 @@ export class MarkerController {
         return {
             marker: marker.toJson()
         }
+    }
+    @Delete('/:id')
+    async deleteMarker(@Param('id') markerID) {
+        const marker = await this.markerService.remove(markerID);
+
+        if (!marker) throw new NotFoundException()
+        return 'OK'
     }
     @Get('/Path')
     async getPath(@Body() searshQuery: SeachPathDTO) {
