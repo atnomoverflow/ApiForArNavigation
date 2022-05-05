@@ -19,7 +19,7 @@ export class ConnectorController {
     async createMarker(@Body() connectorID: ConnectorCreateDTO) {
         const connector = await this.connectorService.create(
             connectorID.connector.longitude,
-            connectorID.connector.longitude)
+            connectorID.connector.latitude)
         return {
             connector: connector.toJson()
         }

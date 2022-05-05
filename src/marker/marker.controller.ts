@@ -19,7 +19,7 @@ export class MarkerController {
     async createMarker(@Body() markerDTO: MarkerCreateDTO) {
         const marker = await this.markerService.create(
             markerDTO.marker.longitude,
-            markerDTO.marker.longitude)
+            markerDTO.marker.latitude)
         return {
             marker: marker.toJson()
         }

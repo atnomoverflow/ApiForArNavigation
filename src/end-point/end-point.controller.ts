@@ -17,7 +17,7 @@ export class EndPointController {
     async createMarker(@Body() endPointCerateDTO: EndPointCreateDTO) {
         const endPoint = await this.endPointService.create(
             endPointCerateDTO.endPoint.longitude,
-            endPointCerateDTO.endPoint.longitude,
+            endPointCerateDTO.endPoint.latitude,
             endPointCerateDTO.endPoint.name)
         return {
             endPoint: endPoint.toJson()
