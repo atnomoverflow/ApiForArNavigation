@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Logger, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common';
 import { MarkerCreateDTO } from 'src/dto/markerCreate.dto';
 import { MarkeUpdateDTO } from 'src/dto/markerUpdate.dto';
 import { SeachPathDTO } from 'src/dto/searshPath.dto';

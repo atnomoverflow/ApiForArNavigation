@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { Connector } from 'src/entity/connector.entity';
 import { EndPoint } from 'src/entity/endPoint.entity';
@@ -88,9 +88,6 @@ export class MarkerService {
             endPointID
         }).then((res) => {
             if (res.records.length == 0) return undefined 
-
-            Logger.log(res.records[0].get("p"))
-
             return res.records[0].get("p").segments.map(seg=>new Connector(seg.start)),res.records[0].get("p").segments.map(seg=>new Connector(seg.end))
         });
     }
