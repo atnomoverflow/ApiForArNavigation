@@ -3,20 +3,28 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MarkerService } from './marker/marker.service';
 import { MarkerModule } from './marker/marker.module';
-import { Neo4jModule } from 'nest-neo4j/dist';
+import { Neo4jConfig, Neo4jModule } from 'nest-neo4j/dist';
 import { ConnectorModule } from './connector/connector.module';
 import { EndPointModule } from './end-point/end-point.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { EncryptionModule } from './encryption/encryption.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [Neo4jModule.forRoot(
-    {
-      scheme:"neo4j",
-      host:'localhost',
-      port:7687,
-      username:'neo4j',
-      password:'Asefb@101'
-    }
-  ), MarkerModule, ConnectorModule, EndPointModule],
+  imports: [
+    ConfigModule.forRoot({isGlobal:true}),
+    Neo4jModule.forRootAsync(
+   { imports:[ConfigModule],
+    injects:[ConfigService],
+    useFactory:(configService:ConfigService):Neo4jConfig=>({
+      scheme:configService.get('NEO4J_SCHEME'),
+      host:configService.get('NEO4J_HOST'),
+      port:configService.get('NEO4J_PORT'),
+      username:configService.get('NEO4J_USERNAME'),
+      password:configService.get('NEO4J_PASSWORD')
+    })}
+  ), MarkerModule, ConnectorModule, EndPointModule, UserModule, AuthModule, EncryptionModule],
   controllers: [AppController],
   providers: [AppService, MarkerService],
 })
