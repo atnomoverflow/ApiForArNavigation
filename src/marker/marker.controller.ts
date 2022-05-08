@@ -39,18 +39,27 @@ export class MarkerController {
         if (!marker) throw new NotFoundException()
         return 'OK'
     }
-    @Get('/Path')
+    
+    @Post('/Path')
     async getPath(@Body() searshQuery: SeachPathDTO) {
         const path = await this.markerService.getPath(searshQuery.query.markerID, searshQuery.query.endPointID)
-        if (!path) throw new NotFoundException()
 
+        if (!path) throw new NotFoundException()
         return {
-            path: path.map(connector => connector.toJson())
+            path: path.map(con=>con.toJson())
         }
     }
     @Post(':markerID/relation/:connectorID')
     async createStartRelation(@Param('markerID') markerID, @Param('connectorID') connectorID) {
         const marker = await this.markerService.start(markerID, connectorID)
+        if (!marker) throw new NotFoundException()
+        return {
+            marker: marker.toJson()
+        }
+    }
+    @Get('/:id')
+    async getDetail(@Param('id') makerID){
+        const marker=await this.markerService.detatil(makerID)
         if (!marker) throw new NotFoundException()
         return {
             marker: marker.toJson()

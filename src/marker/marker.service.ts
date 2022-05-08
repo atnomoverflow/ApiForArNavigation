@@ -24,6 +24,21 @@ export class MarkerService {
             ({ records }) => new Marker(records[0].get('m'))
         );
     }
+    detatil(markerID:string):Promise<Marker|undefined>{
+        return this.neo4jService.read(`
+        Match(m:Marker{id:$markerID})
+        return m
+        `,
+        {
+            markerID
+        }
+        ).then(
+            (res)=>{
+                if (res.records.length == 0) return undefined
+                return new Marker(res.records[0].get('m'))
+            }
+        )
+    }
     update(markerID:string,updates: Record<string, any>):Promise<Marker|undefined>
     {
         return this.neo4jService.write(`MATCH(m:Marker{id:$markerID}
@@ -62,18 +77,18 @@ export class MarkerService {
         })
     }
     getPath(markerID: string, endPointID: string): Promise<Connector[] | undefined> {
+        
         return this.neo4jService.read(`
         MATCH (m:Marker {id: $markerID}),
-            (e:EndPoint {id: $endPointID}),
-            p = shortestPath((m)-[*]-(e))
-        WHERE length(p) > 1
+        (e:EndPoint {id: $endPointID}),
+        p = shortestPath((m)-[*]-(e))
         RETURN p
         `, {
             markerID,
             endPointID
         }).then((res) => {
-            if (res.records.length == 0) return undefined
-            return res.records.map(row => new Connector(row.get('p')))
+            if (res.records.length == 0) return undefined 
+            return res.records[0].get("p").segments.map(seg=>new Connector(seg.start)),res.records[0].get("p").segments.map(seg=>new Connector(seg.end))
         });
     }
     getAllEndPoint(markerID: string): Promise<EndPoint[] | undefined> {
