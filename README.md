@@ -20,6 +20,13 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 ## Configuration
+```
+├── src
+|   ...
+│   ├── app.module.ts
+|   ...
+...
+```
 ```ts
 Neo4jModule.forRoot(
     {
