@@ -12,7 +12,7 @@ export class UserService {
     async createUser(email: string, password: string, firstName?: string, lastName?: string): Promise<User> {
         return await this.neo4jService.write(`
         CREATE(user:User)
-        SET user += $proprities,u.id=randomUUID()
+        SET user += $proprities,user.id=randomUUID()
         RETURN user
         `, {
             proprities: {

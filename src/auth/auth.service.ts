@@ -18,7 +18,7 @@ export class AuthService {
         }
         return null
     }
-    async createToken(user:User){
+    createToken(user:User){
         const{id,email,firstName,lastName}={id:user.getId(),email:user.getEmail(),firstName:user.getFirstName(),lastName:user.getLastName()}
         return {
             access_token:this.jwtService.sign({

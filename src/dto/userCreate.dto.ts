@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, IsObject } from "class-validator";
 import { Type } from "class-transformer";
 
-export class User{
+export class UserCreateDTO{
     @IsEmail()
     @IsNotEmpty()
     email:string;
@@ -9,9 +9,4 @@ export class User{
     password:string;
     firstName?:string;
     lastName?:string
-}
-export class UserCreateDTO{
-    @IsObject()
-    @Type(() => User)
-    user: User;
 }

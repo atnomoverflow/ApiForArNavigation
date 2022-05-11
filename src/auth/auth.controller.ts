@@ -15,10 +15,10 @@ export class AuthController {
     @Post('register')
     async registerPost(@Body() userDTO: UserCreateDTO) {
         const user = await this.userService.createUser(
-            userDTO.user.email,
-            userDTO.user.password,
-            userDTO.user.firstName,
-            userDTO.user.lastName
+            userDTO.email,
+            userDTO.password,
+            userDTO.firstName,
+            userDTO.lastName
         )
         return await this.authService.createToken(user)
     }
