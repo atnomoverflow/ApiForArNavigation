@@ -12,7 +12,7 @@ export class AuthController {
         private readonly userService: UserService,
         private readonly authService: AuthService
     ) { }
-    @Post('/register')
+    @Post('register')
     async registerPost(@Body() userDTO: UserCreateDTO) {
         const user = await this.userService.createUser(
             userDTO.user.email,
@@ -23,12 +23,12 @@ export class AuthController {
         return await this.authService.createToken(user)
     }
     @UseGuards(LocalAuthGuard)
-    @Post('/login')
+    @Post('login')
     async login(@Request() req) {
         return await this.authService.createToken(req.user)
     }
     @UseGuards(JwtAuthGuard)
-    @Get('/user')
+    @Get('user')
     async getUser(@Request() req) {
         const { id, email, firstName, lastName } = { id: req.user.getId(), email: req.user.getEmail(), firstName: req.user.getFirstName(), lastName: req.user.getLastName() }
 
