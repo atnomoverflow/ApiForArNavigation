@@ -1,5 +1,5 @@
 ##   Data Model
-![Data Model](./model/diagrame.png)
+![Data Model](./model/diagrame.jpeg)
 
 ## Installation
 
