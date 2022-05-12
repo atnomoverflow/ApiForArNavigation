@@ -1,13 +1,13 @@
 
-import { IsNotEmpty, ValidateNested, IsObject } from "class-validator";
+import {  ValidateNested, IsObject, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
  class EndPoint{
-    @IsNotEmpty()
+    @IsOptional()
     latitude?:number;
-    @IsNotEmpty()
+    @IsOptional()
     longitude?:number;
-    @IsNotEmpty()
+    @IsOptional()
     name?:string;
     
 }

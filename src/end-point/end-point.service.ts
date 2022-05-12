@@ -14,7 +14,7 @@ export class EndPointService {
             CREATE(e:EndPoint{
                 id: randomUUID(),
                 longitude:$longitude,
-                latitude:$latitude
+                latitude:$latitude,
                 name:$name
             })return e`, {
             longitude,

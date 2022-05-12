@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { EncryptionModule } from './encryption/encryption.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { BuildingModule } from './building/building.module';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         password: configService.get('NEO4J_PASSWORD'),
         database: configService.get('NEO4J_DATABASE'),
       })
-    }), MarkerModule, ConnectorModule, EndPointModule, UserModule, AuthModule, EncryptionModule],
+    }), MarkerModule, ConnectorModule, EndPointModule, UserModule, AuthModule, EncryptionModule, BuildingModule],
   controllers: [AppController],
   providers: [AppService, MarkerService],
 })
