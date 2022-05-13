@@ -28,9 +28,10 @@ export class BuildingController {
       buildings: buildings.map((building) => building.toJson()),
     };
   }
-
+  @UseGuards(JwtAuthGuard)
   @Post('/')
   async createMarker(@Body() buildingDTO: BuidlingCreateDTO) {
+
     const building = await this.buildingService.create(
       buildingDTO.longitude,
       buildingDTO.latitude,
