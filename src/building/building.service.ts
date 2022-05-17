@@ -77,8 +77,8 @@ export class BuildingService {
     return this.neo4jService
       .write(
         `
-        MATCH(b:EndPoint{id:$buildingID})
-        DETATCH DELETE b
+        MATCH(b:Building{id:$buildingID})
+        DETACH DELETE b
         Return b
         `,
         {
