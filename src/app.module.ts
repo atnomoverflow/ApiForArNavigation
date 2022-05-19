@@ -12,9 +12,15 @@ import { EncryptionModule } from './encryption/encryption.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BuildingModule } from './building/building.module';
 
+import { LayerModule } from './layer/layer.module';
+import { MulterModule } from '@nestjs/platform-express';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    MulterModule.register({
+      dest: './files',
+    }),
     Neo4jModule.forRootAsync({
       imports: [ ConfigModule ],
       inject: [ ConfigService, ],
@@ -26,7 +32,7 @@ import { BuildingModule } from './building/building.module';
         password: configService.get('NEO4J_PASSWORD'),
         database: configService.get('NEO4J_DATABASE'),
       })
-    }), MarkerModule, ConnectorModule, EndPointModule, UserModule, AuthModule, EncryptionModule, BuildingModule],
+    }), MarkerModule, ConnectorModule, EndPointModule, UserModule, AuthModule, EncryptionModule, BuildingModule, LayerModule],
   controllers: [AppController],
   providers: [AppService, MarkerService],
 })
